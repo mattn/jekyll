@@ -55,7 +55,7 @@ eos
           return error
         end
 
-        source = File.read(File.join(includes_dir, @file))
+        source = File.read(File.join(includes_dir, @file), context.register[:site].file_read_opts)
         partial = Liquid::Template.parse(source)
 
         context.stack do
