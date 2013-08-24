@@ -31,8 +31,11 @@ module Jekyll
       begin
         opts = (self.site ? self.site.file_read_opts : {}).merge(opts)
 
-        self.content = File.read(File.join(base, name), opts)
-
+        self.content = if RUBY_VERSION < "1.9"
+                         File.read(File.join(base, name))
+                       else
+                         File.read(File.join(base, name), opts)
+                       end
         if self.content =~ /\A(---\s*\n.*?\n?)^(---\s*$\n?)/m
           self.content = $POSTMATCH
           self.data = YAML.safe_load($1)
