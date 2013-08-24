@@ -48,6 +48,11 @@ eos
         end
       end
 
+      # Grab file read opts in the context
+      def file_read_opts_from_context(context)
+        context.registers[:site].file_read_opts
+      end
+
       def render(context)
         includes_dir = File.join(context.registers[:site].source, '_includes')
 
@@ -55,7 +60,11 @@ eos
           return error
         end
 
-        source = File.read(File.join(includes_dir, @file), context.registers[:site].file_read_opts)
+        source = if RUBY_VERSION < "1.9"
+                   File.read(File.join(includes_dir, @file))
+                 else
+                   File.read(File.join(includes_dir, @file), file_read_opts_from_context(context))
+                 end
         partial = Liquid::Template.parse(source)
 
         context.stack do
