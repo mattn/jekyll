@@ -60,11 +60,8 @@ eos
           return error
         end
 
-        source = if RUBY_VERSION < "1.9"
-                   File.read(File.join(includes_dir, @file))
-                 else
-                   File.read(File.join(includes_dir, @file), file_read_opts_from_context(context))
-                 end
+        source = File.read_with_options(File.join(includes_dir, @file),
+                                        file_read_opts_from_context(context))
         partial = Liquid::Template.parse(source)
 
         context.stack do
