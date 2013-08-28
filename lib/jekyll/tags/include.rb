@@ -49,7 +49,7 @@ eos
       end
 
       # Grab file read opts in the context
-      def file_read_opts_from_context(context)
+      def file_read_opts(context)
         context.registers[:site].file_read_opts
       end
 
@@ -60,8 +60,7 @@ eos
           return error
         end
 
-        source = File.read_with_options(File.join(includes_dir, @file),
-                                        file_read_opts_from_context(context))
+        source = File.read_with_options(File.join(includes_dir, @file), file_read_opts(context))
         partial = Liquid::Template.parse(source)
 
         context.stack do
