@@ -103,8 +103,12 @@ class="flag">flags</code> (specified on the command-line) that control them.
       <td>
         <p class='name'><strong>Encoding</strong></p>
         <p class="description">
-            Set the encoding of files. The default is the system encoding,
-            which determined by LANG environment variable.
+            Set the encoding of files by name. Only avaialble for Ruby
+            1.9 or later).
+			The default value is nil, which assumes default encoding,
+			<code>ASCII-8BIT</code>.
+			Available encoding for the ruby in use, can be shown by
+			command <code>ruby -e 'puts Encoding::list.join("\n")</code>
         </p>
       </td>
       <td class='align-center'>
