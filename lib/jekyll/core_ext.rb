@@ -74,12 +74,10 @@ end
 # read_with_options ignore optional parameter for 1.8,
 # and act as alias for 1.9 or later.
 class File
-  if RUBY_VERSION < '1.9'
-    def self.read_with_options(path, opts = {})
+  def self.read_with_options(path, opts = {})
+    if RUBY_VERSION < '1.9'
       self.read(path)
-    end
-  else
-    def self.read_with_options(path, opts = {})
+    else
       self.read(path, opts)
     end
   end
